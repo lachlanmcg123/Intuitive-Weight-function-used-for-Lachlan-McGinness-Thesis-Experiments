@@ -1,0 +1,85 @@
+
+
+
+
+
+%%%Outstanding Rules to be proven terminating
+
+sin(-X) -> -sin(X).
+cos(-X) -> cos(X).
+sin(X+Y) -> sin(X)*cos(Y) + cos(X)*sin(Y).
+cos(X+Y) -> cos(X)*cos(Y) - sin(X)*sin(Y).
+cos([Z]*X) -> 2*cos(X)*cos([Z-1]*X) - cos([Z-2]*X) | [Z] > 1.
+sin([Z]*X) -> 2*cos(X)*sin([Z-1]*X) - sin([Z-2]*X) | [Z] > 1.
+sin(X)*sin(X) -> 1 - cos(X)*cos(X).
+
+
+
+%%%%%%%%%%%%%%Move everything below here to the start %%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Quote Term Identities
+1 * X -> X.
+X * 1 -> X.
+0 * X -> 0.
+X * 0 -> 0.
+1 ^ [X] -> 1.
+X ^ 1 -> X.
+0 + X -> X. 
+X + 0 -> X. 
+X ^ 0 -> 1.
+0 ^ X -> 0.
+
+%Evaluating Quote terms
+[X] + [Y] -> [X + Y]. 
+[X] + ([Y] + Z) -> [X + Y] + Z. 
+[X]*Z + [Y]*Z -> [X+Y]*Z. 
+[X]*Z + ([Y]*Z + W) -> [X+Y]*Z + W.
+Z + [X]*Z -> [1+X]*Z.
+Z + ([X]*Z + W) -> [1+X]*Z + W.
+[X]*Z + Z -> [1+X]*Z.
+[X]*Z + (Z + W) -> [1+X]*Z + W.
+[X]*[Y] -> [X*Y].
+[X]*([Y]*Z) -> [X*Y]*Z. 
+X^[Y]^[Z] -> X^[Y^Z]. 
+[X]^[Y] -> [X^Y]. 
+Z + Z -> [2]*Z. 
+Z + (Z + X) -> [2]*Z + X . 
+[X] - [Y] -> [X - Y].
+
+%%% Required for static analysis only: %%% 26/1/26 Moved into "get_analysis_safe_rules" in confluence.py
+%[X]^[Y]*[Z]^[Y] -> [X*Z]^[Y].
+%[0*X] -> 0.
+
+
+%%% AC Rules for addition
+(X + Y) + Z -> X + (Y + Z).
+X + Y -> Y + X | X > Y.
+X + (Y + Z) -> Y + (X + Z) | X > Y.
+
+%%% AC Rules for multiplication
+(X * Y) * Z -> X * (Y * Z).
+X * Y -> Y * X | X > Y.
+X * (Y * Z) -> Y * (X * Z) | X > Y.
+
+%%% Distributivity of multiplication over addition
+X * (Y + Z) -> X * Y + X * Z.
+(Y + Z) * X -> Y * X + Z * X.
+
+
+%Exponentiation Laws
+(X * Y)^[Z] -> X^[Z] * Y^[Z] | [Z] > 0.
+(X+Y)^[Z] -> X*(X+Y)^([Z]-1)+ Y*(X+Y)^([Z]-1) | [Z] > 0.
+X^[Z] -> X * X^([Z]-1) | [Z] > 0.
+
+
+
+%Trigonometric Rules
+sin([X]) -> [sin(X)].
+cos([X]) -> [cos(X)].
+
+
+
+
+
+
